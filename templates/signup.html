@@ -1,124 +1,122 @@
 {% extends 'layout_home.html' %} {% block content %}
+<title>Sign Up</title>
 <style>
-  .signup {
-    width: 382px;
-    overflow: hidden;
-    margin: auto;
-    margin: 20 0 0 450px;
-    padding: 80px;
+  .user_card {
+    width: 350px;
+    margin-top: auto;
+    margin-bottom: auto;
     background: rgb(197, 170, 106);
-    border-radius: 15px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
   }
-  h2 {
-    text-align: center;
-    color: #277582;
-    padding: 20px;
+
+  .form_container {
+    margin-top: 20px;
   }
-  label {
-    color: rgb(0, 0, 0);
-    font-size: 17px;
-  }
-  #Uname {
-    width: 300px;
-    height: 30px;
-    border: none;
-    border-radius: 3px;
-    padding-left: 8px;
-  }
-  #Pass {
-    width: 300px;
-    height: 30px;
-    border: none;
-    border-radius: 3px;
-    padding-left: 8px;
-  }
-  #Pass2 {
-    width: 300px;
-    height: 30px;
-    border: none;
-    border-radius: 3px;
-    padding-left: 8px;
-  }
-  #sign {
-    width: 300px;
-    height: 30px;
-    border: none;
-    border-radius: 17px;
-    padding-left: 7px;
+
+  #form-title {
     color: rgb(0, 0, 0);
   }
-  span {
-    color: bla;
-    font-size: 17px;
+  .login_btn {
+    width: 100%;
+    background: rgb(0, 0, 0) !important;
+    color: rgb(197, 170, 106) !important;
+  }
+  .login_btn:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+  }
+  .login_container {
+    padding: 0 2rem;
+  }
+  .input-group-text {
+    background: rgb(0, 0, 0) !important;
+    color: rgb(197, 170, 106) !important;
+    border: 0 !important;
+    border-radius: 0.25rem 0 0 0.25rem !important;
+  }
+  .input_user,
+  .input_pass:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
   }
 </style>
-<script>
-  function check_pass() {
-    if (
-      document.getElementById("Pass").value ==
-      document.getElementById("Pass2").value
-    ) {
-      document.getElementById("sign").disabled = false;
-    } else {
-      document.getElementById("sign").disabled = true;
+<body>
+  <br />
+  <br />
+  <br />
+  <br />
+  <div class="container h-100">
+    <div class="d-flex justify-content-center h-100">
+      <div class="user_card">
+        <div class="d-flex justify-content-center">
+          <h3 id="form-title">SIGN UP</h3>
+        </div>
+        <div class="d-flex justify-content-center form_container">
+          <form method="POST" action="">
+            {% csrf_token %}
+            <div class="input-group mb-3">
+              <div class="input-group-append">
+                <span class="input-group-text"
+                  ><i class="fas fa-user"></i
+                ></span>
+              </div>
+              {{form.username}}
+            </div>
+            <div class="input-group mb-2">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-key"></i></span>
+              </div>
+              {{form.password1}}
+            </div>
+            <div class="input-group mb-2">
+              <div class="input-group-append">
+                <span class="input-group-text"><i class="fas fa-key"></i></span>
+              </div>
+              {{form.password2}}
+            </div>
+
+            <div class="d-flex justify-content-center mt-3 login_container">
+              <input
+                class="btn login_btn"
+                type="submit"
+                value="Register Account"
+              />
+            </div>
+          </form>
+        </div>
+
+        <div class="mt-4">
+          <div class="d-flex justify-content-center links">
+            Have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    /* Because i didnt set placeholder values in forms.py they will be set here using vanilla Javascript
+		//We start indexing at one because CSRF_token is considered and input field 
+		 */
+
+    //Query All input fields
+    var form_fields = document.getElementsByTagName("input");
+    form_fields[1].placeholder = "Username";
+    form_fields[2].placeholder = "Enter password";
+    form_fields[3].placeholder = "Confirm Password";
+
+    for (var field in form_fields) {
+      form_fields[field].className += " form-control";
     }
-  }
-  function check_empty() {
-    if (
-      document.getElementById("Uname").value == "" ||
-      document.getElementById("Pass").value == "" ||
-      document.getElementById("Pass2").value == ""
-    ) {
-      document.getElementById("sign").disabled = true;
-    } else {
-      document.getElementById("sign").disabled = false;
-    }
-  }
-</script>
-<br />
-<br />
-<br />
-<br />
-<div class="signup">
-  <form id="signup" method="get" action="signup.php">
-    <label><b>Username </b> </label>
-    <input
-      type="text"
-      name="Uname"
-      id="Uname"
-      placeholder="Username"
-      onchange="check_empty();"
-    />
-    <br />
-    <label><b>Password </b> </label>
-    <input
-      type="Password"
-      name="Pass"
-      id="Pass"
-      placeholder="Password"
-      onchange="check_pass(); check_empty();"
-    />
-    <br />
-    <label><b>Confirm Password </b> </label>
-    <input
-      type="Password"
-      name="Pass2"
-      id="Pass2"
-      placeholder="Confirm Password"
-      onchange="check_pass(); check_empty();"
-    />
-    <br /><br />
-    <input
-      signup
-      style="font-family: Verdana"
-      type="button"
-      name="sign"
-      id="sign"
-      value="Sign Up"
-      disabled
-    />
-    <br /><br />
-    Already have an account? <a href="login">Login</a>
-  </form>
-</div>
+  </script>
+</body>
 {% endblock %}
