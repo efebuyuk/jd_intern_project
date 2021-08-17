@@ -1,0 +1,71 @@
+{% extends 'layout_home.html' %} {% block content %}
+<style>
+  .login {
+    width: 382px;
+    overflow: hidden;
+    margin: auto;
+    margin: 20 0 0 450px;
+    padding: 80px;
+    background: rgb(197, 170, 106);
+    border-radius: 15px;
+  }
+  h2 {
+    text-align: center;
+    color: #277582;
+    padding: 20px;
+  }
+  label {
+    color: rgb(0, 0, 0);
+    font-size: 17px;
+  }
+  #Uname {
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    padding-left: 8px;
+  }
+  #Pass {
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    padding-left: 8px;
+  }
+  #log {
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 17px;
+    padding-left: 7px;
+    color: rgb(0, 0, 0);
+  }
+  span {
+    color: bla;
+    font-size: 17px;
+  }
+</style>
+<br />
+<br />
+<br />
+<br />
+<div class="login">
+  <form id="login" method="get" action="login.php">
+    <label><b>User Name </b> </label>
+    <input type="text" name="Uname" id="Uname" placeholder="Username" />
+    <br />
+    <label><b>Password </b> </label>
+    <input type="Password" name="Pass" id="Pass" placeholder="Password" />
+    <br /><br />
+    <input
+      style="font-family: Verdana"
+      type="button"
+      name="log"
+      id="log"
+      value="Login"
+    />
+    <br /><br />
+    Don't have an account? <a href="signup">Sign up</a>
+  </form>
+</div>
+{% endblock %}
