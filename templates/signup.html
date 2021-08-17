@@ -1,6 +1,6 @@
 {% extends 'layout_home.html' %} {% block content %}
 <style>
-  .login {
+  .signup {
     width: 382px;
     overflow: hidden;
     margin: auto;
@@ -39,7 +39,7 @@
     border-radius: 3px;
     padding-left: 8px;
   }
-  #log {
+  #sign {
     width: 300px;
     height: 30px;
     border: none;
@@ -52,17 +52,52 @@
     font-size: 17px;
   }
 </style>
+<script>
+  function check_pass() {
+    if (
+      document.getElementById("Pass").value ==
+      document.getElementById("Pass2").value
+    ) {
+      document.getElementById("sign").disabled = false;
+    } else {
+      document.getElementById("sign").disabled = true;
+    }
+  }
+  function check_empty() {
+    if (
+      document.getElementById("Uname").value == "" ||
+      document.getElementById("Pass").value == "" ||
+      document.getElementById("Pass2").value == ""
+    ) {
+      document.getElementById("sign").disabled = true;
+    } else {
+      document.getElementById("sign").disabled = false;
+    }
+  }
+</script>
 <br />
 <br />
 <br />
 <br />
-<div class="login">
-  <form id="login" method="get" action="login.php">
-    <label><b>User Name </b> </label>
-    <input type="text" name="Uname" id="Uname" placeholder="Username" />
+<div class="signup">
+  <form id="signup" method="get" action="signup.php">
+    <label><b>Username </b> </label>
+    <input
+      type="text"
+      name="Uname"
+      id="Uname"
+      placeholder="Username"
+      onchange="check_empty();"
+    />
     <br />
     <label><b>Password </b> </label>
-    <input type="Password" name="Pass" id="Pass" placeholder="Password" />
+    <input
+      type="Password"
+      name="Pass"
+      id="Pass"
+      placeholder="Password"
+      onchange="check_pass(); check_empty();"
+    />
     <br />
     <label><b>Confirm Password </b> </label>
     <input
@@ -70,14 +105,17 @@
       name="Pass2"
       id="Pass2"
       placeholder="Confirm Password"
+      onchange="check_pass(); check_empty();"
     />
     <br /><br />
     <input
+      signup
       style="font-family: Verdana"
       type="button"
-      name="log"
-      id="log"
+      name="sign"
+      id="sign"
       value="Sign Up"
+      disabled
     />
     <br /><br />
     Already have an account? <a href="login">Login</a>
