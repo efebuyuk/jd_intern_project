@@ -1,0 +1,372 @@
+{% extends 'layout_login.html' %} {% block content %}
+
+
+        {% load static %}
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Jeton Digital</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link rel="stylesheet" href="{% static 'css/yigit.css' %}">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>     
+        <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+            .wordcloud {
+            border: 1px solid #036;
+            height: 7in;
+            margin: 0.5in auto;
+            padding: 0;
+            page-break-after: always;
+            page-break-inside: avoid;
+            width: 7in;
+            }
+            </style>
+        
+        <div id="layoutSidenav">
+            
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Dashboard</h1>
+                        <!--<ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                        
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body">Primary Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-warning text-white mb-4">
+                                    <div class="card-body">Warning Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-success text-white mb-4">
+                                    <div class="card-body">Success Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-danger text-white mb-4">
+                                    <div class="card-body">Danger Card</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-area me-1"></i>
+                                        Area Chart Example
+                                    </div>
+                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                        Bar Chart Example
+                                    </div>
+                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                </div>
+                            </div>
+                        </div>
+                        -->
+                        <div class="card mb-4" id="datatable">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                DataTable
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Name of the Notebook</th>
+                                            <th>Used Datasets</th>
+                                            <th>Number Of Commend Lines</th>
+                                            <th>Number Of Markdown Cells</th>
+                                            <th>Number Of Code Cells</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th></th>
+                                            <th>Name of the Notebook</th>
+                                            <th>Used Datasets</th>
+                                            <th>Number Of Commend Lines</th>
+                                            <th>Number Of Markdown Cells</th>
+                                            <th>Number Of Code Cells</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        
+                                        {% for galaxy in galaxies %}
+                                        <tr>
+                                            <td>#</td>
+                                            <td>{{ galaxy.0 }}</td>
+                                            <td>{{ galaxy.1 }}</td>
+                                            <td>{{ galaxy.2 }}</td>
+                                            <td>{{ galaxy.3 }}</td>
+                                            <td>{{ galaxy.4 }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--Code blcok vs comment block-->
+                        <div class="card mb-4" id="codeblocktocommentblock">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Ratio of code blocks to comment bloks
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <canvas id="chDonut2"></canvas>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span>
+                                            It seems like on kagggle peple make their best on exolaining their work.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Type of dataset-->
+                        <div class="card mb-4" id="typeofdatasets">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Type of Datasets used in notebooks
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <canvas id="chDonut1"></canvas>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <span>
+                                            The most common dataset used in Kaggle notebooks is CSV and the second most common is JSON other common dataset types maybe things like SQL or xlsx.</span>
+                                    </div>
+                                </div>
+                                        <!--<div class="col-md-4 py-1">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <canvas id="chDonut2"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 py-1">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <canvas id="chDonut3"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                                    
+                            </div>
+                        </div>
+                        <!--Code blcok vs comment block-->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Libraries used in Notebooks
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div id="wordcloud1" class="wordcloud">
+                                    {% for value, key  in dic_of_libraries.mylist %}
+                                        <span data-weight="{{ key }}">{{ value }}</span>
+                                    {% endfor %}
+                                    </div>                                    
+        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <!--<div class="text-muted">Copyright &copy; Your Website 2021</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>-->
+                    </div>
+                </footer>
+            </div>
+        </div>
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        
+        <script src="{% static 'js/scripts.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'assets/demo/chart-area-demo.js' %}"></script>
+        <script src="{% static 'assets/demo/chart-bar-demo.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
+        <script src="{% static 'js/jquery.awesomeCloud-0.2.js' %}"></script>
+        <script>
+            /* chart.js chart examples */
+
+            // chart colors
+            var colors = ['#007bff','#28a745','#333333','#c3e6cb','#dc3545','#6c757d'];
+
+            /* 3 donut charts */
+            var donutOptions = {
+            cutoutPercentage: 85, 
+            legend: {position:'bottom', padding:5, labels: {pointStyle:'circle', usePointStyle:true}}
+            };
+
+            // donut 1
+            var chDonutData1 = {
+                labels: ['CSV', 'JSON', 'XLSX', 'Other'],
+                datasets: [
+                {
+                    backgroundColor: colors.slice(0,3),
+                    borderWidth: 0,
+                    data: [{{ type_of_dataset.0 }}, {{ type_of_dataset.2 }}, {{ type_of_dataset.1 }}, {{ type_of_dataset.3 }}]
+                }
+                ]
+            };
+
+            var chDonut1 = document.getElementById("chDonut1");
+            if (chDonut1) {
+            new Chart(chDonut1, {
+                type: 'pie',
+                data: chDonutData1,
+                options: donutOptions
+            });
+            }
+
+            // donut 2
+            var chDonutData2 = {
+                labels: ['Code', 'Markdown'],
+                datasets: [
+                {
+                    backgroundColor: colors.slice(0,3),
+                    borderWidth: 0,
+                    data: [{{ type_of_code_cells.1 }}, {{ type_of_code_cells.0 }}]
+                }
+                ]
+            };
+            var chDonut2 = document.getElementById("chDonut2");
+            if (chDonut2) {
+            new Chart(chDonut2, {
+                type: 'pie',
+                data: chDonutData2,
+                options: donutOptions
+            });
+            }
+
+            // donut 3
+            var chDonutData3 = {
+                labels: ['Angular', 'React', 'Other'],
+                datasets: [
+                {
+                    backgroundColor: colors.slice(0,3),
+                    borderWidth: 0,
+                    data: [21, 45, 55, 33]
+                }
+                ]
+            };
+            var chDonut3 = document.getElementById("chDonut3");
+            if (chDonut3) {
+            new Chart(chDonut3, {
+                type: 'pie',
+                data: chDonutData3,
+                options: donutOptions
+            });
+            }
+
+
+        </script>
+        <script>
+                    $(document).ready(function(){
+                        $("#wordcloud1").awesomeCloud({
+                            "size" : {
+                                "grid" : 16,
+                                "normalize" : false
+                            },
+                            "options" : {
+                                "color" : "random-dark",
+                                "rotationRatio" : 0.35,
+                                "printMultiplier" : 3,
+                                "sort" : "random"
+                            },
+                            "font" : "'Times New Roman', Times, serif",
+                            "shape" : "square"
+                        });
+                        $("#wordcloud2").awesomeCloud({
+                            "size" : {
+                                "grid" : 9,
+                                "factor" : 1
+                            },
+                            "options" : {
+                                "color" : "random-dark",
+                                "rotationRatio" : 0.35
+                            },
+                            "font" : "'Times New Roman', Times, serif",
+                            "shape" : "circle"
+                        });
+                        $("#wordcloud3").awesomeCloud({
+                            "size" : {
+                                "grid" : 1,
+                                "factor" : 3
+                            },
+                            "color" : {
+                                "background" : "#036"
+                            },
+                            "options" : {
+                                "color" : "random-light",
+                                "rotationRatio" : 0.5,
+                                "printMultiplier" : 3
+                            },
+                            "font" : "'Times New Roman', Times, serif",
+                            "shape" : "star"
+                        });
+                    });
+        </script> 
+		<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+		<script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+		<script type="text/javascript">
+        
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-36251023-1']);
+        _gaq.push(['_setDomainName', 'jqueryscript.net']);
+        _gaq.push(['_trackPageview']);
+      
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      
+      </script>
+{% endblock %}
