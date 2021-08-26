@@ -16,12 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from yigit import views
 from mainpage import views
+
 
 urlpatterns = [
     path('', include('mainpage.urls')),
+    path('yigit', include('yigit.urls')),
     path('admin/', admin.site.urls),
     path('', views.index, name='index.html'),
+
     path('signup', views.signup, name='signup.html'),
     path('login', views.loginPage, name='login.html'),
     path('logout', views.logoutUser, name='logout.html'),
