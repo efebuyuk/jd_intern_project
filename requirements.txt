@@ -5,3 +5,5 @@ sqlparse==0.4.1
 typing-extensions==3.10.0.0
 plotly
 pandas
+plotly.express
+flask

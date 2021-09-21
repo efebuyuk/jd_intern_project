@@ -30,6 +30,7 @@ urlpatterns = [
     path('login', views.loginPage, name='login.html'),
     path('logout', views.logoutUser, name='logout.html'),
     path('logged_home', views.logged_home, name='logged_home.html'),
-    path('dash_oyku/', include('dash_oyku.urls'))
+    path('dash_oyku/', include('dash_oyku.urls')),
+    path('dash_berkay/', include('dash_berkay.urls'))
 
 ]

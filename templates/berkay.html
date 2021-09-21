@@ -1,0 +1,359 @@
+{% extends 'layout_login.html' %} {% block content %}
+<div class="container">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous"
+  />
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"
+    integrity="sha512-asxKqQghC1oBShyhiBwA+YgotaSYKxGP1rcSYTDrB0U6DxwlJjU59B67U8+5/++uFjcuVM8Hh5cokLjZlhm3Vg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"
+    integrity="sha512-asxKqQghC1oBShyhiBwA+YgotaSYKxGP1rcSYTDrB0U6DxwlJjU59B67U8+5/++uFjcuVM8Hh5cokLjZlhm3Vg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <h1 class="text-center">The Analysis of the Notebooks</h1>
+  <br />
+  <br />
+  <h3>General Information about the Notebooks</h3>
+  <br />
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>The File Name</th>
+        <th>The Type of the File</th>
+        <th>The Dataset</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{list_file_names.0}}</td>
+        <td>{{list_file_types.0}}</td>
+        <td>{{list_file_datasets.0}}</td>
+      </tr>
+      <tr>
+        <td>{{list_file_names.1}}</td>
+        <td>{{list_file_types.1}}</td>
+        <td>{{list_file_datasets.1}}</td>
+      </tr>
+      <tr>
+        <td>{{list_file_names.2}}</td>
+        <td>{{list_file_types.2}}</td>
+        <td>{{list_file_datasets.2}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <br />
+  <canvas id="myChart" width="100" height="100"></canvas>
+
+  <script></script>
+  <script>
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myChart = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: ['PYTHON Language', 'R Language'],
+        datasets: [
+          {
+            data: [{{ list_file_types_number.0 }}, {{ list_file_types_number.1 }}, {{ list_file_types_number.2 }}],
+            backgroundColor: [
+              "rgb(163, 194, 194)",
+              "rgb(255, 204, 102)",
+              "rgb(255, 102, 102)"
+            ],
+            borderColor: [
+              "rgb(61, 92, 92)",
+              "rgb(255, 170, 0)",
+              "rgb(255, 0, 0)"
+            ],
+            borderWidth: 1,
+            hoverOffset: 4,
+          },
+        ],
+      },
+      options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'The Distribution of Languages'
+            }
+        }
+      },
+    });
+  </script>
+  <br />
+  <br />
+  <br />
+  <br />
+  <h2 class="text-center">
+    The Number of comment sections or lines in a file might indicate the
+    explanatory side of the notebook and much clear explanation of the code and
+    it's function.
+  </h2>
+  <br />
+  <canvas id="myChart2" max-width="100" max-height="100"></canvas>
+  <script>
+    var ctx2 = document.getElementById("myChart2").getContext("2d");
+    var myChart2 = new Chart(ctx2, {
+      type: "bar",
+      data: {
+        labels: {{ list_file_names|safe }},
+        datasets: [
+          {
+            label: ['Number of Comment or Markdown Cells of the Files'],
+            data: [{{ list_file_comment_numbers.0 }}, {{ list_file_comment_numbers.1 }}, {{ list_file_comment_numbers.2 }}],
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(255, 206, 86, 0.2)",
+              "rgba(75, 192, 192, 0.2)",
+              "rgba(153, 102, 255, 0.2)",
+              "rgba(255, 159, 64, 0.2)",
+            ],
+            borderColor: [
+              "rgba(255, 99, 132, 1)",
+              "rgba(54, 162, 235, 1)",
+              "rgba(255, 206, 86, 1)",
+              "rgba(75, 192, 192, 1)",
+              "rgba(153, 102, 255, 1)",
+              "rgba(255, 159, 64, 1)",
+            ],
+            borderWidth: 1,
+            hoverOffset: 4,
+          },
+        ],
+      },
+      options: {
+        indexAxis: 'y',
+        plugins: {
+            title: {
+                display: true,
+                text: 'The Comment Number of the Files'
+            }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  </script>
+  <br />
+  <br />
+  <br />
+  <br />
+  <h2 class="text-center">
+    The Number of code sections or lines in a file highlights the work put in to
+    the notebook and indicate the scale of the work and the code.
+  </h2>
+  <br />
+  <canvas id="myChart3" max-width="100" max-height="100"></canvas>
+  <script>
+    var ctx3 = document.getElementById("myChart3").getContext("2d");
+    var myChart3 = new Chart(ctx3, {
+      type: "bar",
+      data: {
+        labels: {{ list_file_names|safe }},
+        datasets: [
+          {
+            label: ['Number of Coding Cells of the Files'],
+            data: [{{ list_file_code_numbers.0 }}, {{ list_file_code_numbers.1 }}, {{ list_file_code_numbers.2 }}],
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(255, 206, 86, 0.2)",
+              "rgba(75, 192, 192, 0.2)",
+              "rgba(153, 102, 255, 0.2)",
+              "rgba(255, 159, 64, 0.2)",
+            ],
+            borderColor: [
+              "rgba(255, 99, 132, 1)",
+              "rgba(54, 162, 235, 1)",
+              "rgba(255, 206, 86, 1)",
+              "rgba(75, 192, 192, 1)",
+              "rgba(153, 102, 255, 1)",
+              "rgba(255, 159, 64, 1)",
+            ],
+            borderWidth: 1,
+            hoverOffset: 4,
+          },
+        ],
+      },
+      options: {
+        indexAxis: 'y',
+        plugins: {
+            title: {
+                display: true,
+                text: 'The Code Number of the Files'
+            }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  </script>
+  <br />
+  <br />
+  <br />
+  <br />
+  <h2 class="text-center">
+    The distribution between the code and comment or markdown numbers indicate
+    how each code or function is explained, thus increasing the readability and
+    understandability of both the code and the notebook overall.
+  </h2>
+  <br />
+  <canvas id="myChart2_3" max-width="100" max-height="100"></canvas>
+  <script>
+    var ctx2_3 = document.getElementById("myChart2_3").getContext("2d");
+    var myChart2_3 = new Chart(ctx2_3, {
+      type: "bar",
+      data: {
+        labels: {{ list_file_names|safe }},
+        datasets: [
+          {
+            label: ['Number of Comment or Markdown Cells of the Files'],
+            data: [{{ list_file_comment_numbers.0 }}, {{ list_file_comment_numbers.1 }}, {{ list_file_comment_numbers.2 }}],
+            backgroundColor: [
+              "rgb(163, 194, 194)",
+            ],
+            borderColor: [
+              "rgb(61, 92, 92)",
+            ],
+            borderWidth: 1,
+            hoverOffset: 4,
+          },
+          {
+            label: ['Number of Coding Cells of the Files'],
+            data: [{{ list_file_code_numbers.0 }}, {{ list_file_code_numbers.1 }}, {{ list_file_code_numbers.2 }}],
+            backgroundColor: [
+              "rgb(255, 204, 102)",
+            ],
+            borderColor: [
+              "rgb(255, 170, 0)",
+            ],
+            borderWidth: 1,
+            hoverOffset: 4,
+          },
+        ],
+      },
+      options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'The Comment and Code Number of the Files'
+            }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  </script>
+  <br />
+  <br />
+  <br />
+  <br />
+  <h2 class="text-center">
+    The number of libraries used in a script or a notebook might suggest the
+    scale of the work and in addition, it can indicate there may be different
+    approachs to the subject being investigated.
+  </h2>
+  <br />
+  <canvas id="myChart4" max-width="100" max-height="100"></canvas>
+  <script>
+    var ctx4 = document.getElementById("myChart4").getContext("2d");
+    var myChart4 = new Chart(ctx4, {
+      type: "polarArea",
+      data: {
+        labels: {{ list_file_names|safe }},
+        datasets: [
+          {
+            label: ['Number of Libraries used in the Files'],
+            data: [{{ list_file_libraries_number.0 }}, {{ list_file_libraries_number.1 }}, {{ list_file_libraries_number.2 }}],
+            backgroundColor: [
+              "rgb(163, 194, 194)",
+              "rgb(255, 204, 102)",
+              "rgb(255, 102, 102)"
+            ],
+            borderColor: [
+              "rgb(61, 92, 92)",
+              "rgb(255, 170, 0)",
+              "rgb(255, 0, 0)"
+            ],
+            borderWidth: 1,
+            hoverOffset: 4,
+          },
+        ],
+      },
+      options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'The Library Number of the Files'
+            }
+        },
+      },
+    });
+  </script>
+  <br />
+  <br />
+  <br />
+  <br />
+  <h2 class="text-center">
+    In order to gain insight about the project, identifying the libraries are
+    crucial to see in which direction the notebook works on.
+  </h2>
+  <br />
+  <h3>The Libraries used in the Notebooks</h3>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>The File Name</th>
+          <th>The Number of Libraries</th>
+          <th>The Names of Libraries</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{list_file_names.0}}</td>
+          <td>{{list_file_libraries_number.0}}</td>
+          <td>{{list_file_libraries.0}}</td>
+        </tr>
+        <tr>
+          <td>{{list_file_names.1}}</td>
+          <td>{{list_file_libraries_number.1}}</td>
+          <td>{{list_file_libraries.1}}</td>
+        </tr>
+        <tr>
+          <td>{{list_file_names.2}}</td>
+          <td>{{list_file_libraries_number.2}}</td>
+          <td>{{list_file_libraries.2}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <br />
+  <br />
+  <br />
+</div>
+{% endblock %}
